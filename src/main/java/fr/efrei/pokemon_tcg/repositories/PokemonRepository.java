@@ -1,10 +1,11 @@
 package fr.efrei.pokemon_tcg.repositories;
 
-import fr.efrei.pokemon_tcg.constants.TypePokemon;
-import fr.efrei.pokemon_tcg.models.Pokemon;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import fr.efrei.pokemon_tcg.constants.TypePokemon;
+import fr.efrei.pokemon_tcg.models.Pokemon;
 
 public interface PokemonRepository extends JpaRepository<Pokemon, String> {
 
