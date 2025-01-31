@@ -28,6 +28,14 @@ public class Card {
     @Enumerated(EnumType.STRING)
     private Rarity rarity;
 
+    @ManyToOne
+    @JoinColumn(name = "first_attaque_uuid")
+    private Attaque firstAttaque;
+
+    @ManyToOne
+    @JoinColumn(name = "second_attaque_uuid")
+    private Attaque secondAttaque;
+
     public Card() {
         this.pv = genererPvAleatoires();
         this.rarity = genererRarityAleatoire();
@@ -76,5 +84,21 @@ public class Card {
 
     public void setRarity(Rarity rarity) {
         this.rarity = rarity;
+    }
+
+    public Attaque getFirstAttaque() {
+        return firstAttaque;
+    }
+
+    public void setFirstAttaque(Attaque firstAttaque) {
+        this.firstAttaque = firstAttaque;
+    }
+
+    public Attaque getSecondAttaque() {
+        return secondAttaque;
+    }
+
+    public void setSecondAttaque(Attaque secondAttaque) {
+        this.secondAttaque = secondAttaque;
     }
 }

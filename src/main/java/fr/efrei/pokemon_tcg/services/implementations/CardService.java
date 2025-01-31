@@ -5,9 +5,10 @@ import java.util.Random;
 
 import org.springframework.stereotype.Service;
 
-import fr.efrei.pokemon_tcg.dto.CreateCard;
+import fr.efrei.pokemon_tcg.models.Attaque;
 import fr.efrei.pokemon_tcg.models.Card;
 import fr.efrei.pokemon_tcg.models.Pokemon;
+import fr.efrei.pokemon_tcg.repositories.AttaqueRepository;
 import fr.efrei.pokemon_tcg.repositories.CardRepository;
 import fr.efrei.pokemon_tcg.repositories.PokemonRepository;
 import fr.efrei.pokemon_tcg.services.ICardService;
@@ -17,10 +18,12 @@ public class CardService implements ICardService {
 
     private final CardRepository repository;
     private final PokemonRepository pokemonRepository;
+    private final AttaqueRepository attaqueRepository;
 
-    public CardService(CardRepository repository, PokemonRepository pokemonRepository) {
+    public CardService(CardRepository repository, PokemonRepository pokemonRepository, AttaqueRepository attaqueRepository) {
         this.repository = repository;
         this.pokemonRepository = pokemonRepository;
+        this.attaqueRepository = attaqueRepository;
     }
 
     @Override
@@ -34,13 +37,25 @@ public class CardService implements ICardService {
     }
 
     @Override
-    public void create(CreateCard cardDto) {
+    public void create() {
         Card card = new Card();
         List<Pokemon> pokemons = pokemonRepository.findAll();
         if (!pokemons.isEmpty()) {
             Random random = new Random();
             Pokemon randomPokemon = pokemons.get(random.nextInt(pokemons.size()));
             card.setPokemon(randomPokemon);
+        }
+        List<Attaque> attaques = attaqueRepository.findAll();
+        if (!attaques.isEmpty()) {
+            Random random = new Random();
+            Attaque randomAttaque = attaques.get(random.nextInt(attaques.size()));
+            card.setFirstAttaque(randomAttaque);
+        }
+        List<Attaque> attaques2 = attaqueRepository.findAll();
+        if (!attaques2.isEmpty()) {
+            Random random = new Random();
+            Attaque randomAttaque = attaques2.get(random.nextInt(attaques2.size()));
+            card.setSecondAttaque(randomAttaque);
         }
         repository.save(card);
     }

@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.efrei.pokemon_tcg.dto.CreateCard;
 import fr.efrei.pokemon_tcg.models.Card;
 import fr.efrei.pokemon_tcg.services.implementations.CardService;
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/cards")
@@ -43,8 +41,8 @@ public class CardController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> create(@Valid @RequestBody CreateCard createCard) {
-        cardService.create(createCard);
+    public ResponseEntity<Void> create() {
+        cardService.create();
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
