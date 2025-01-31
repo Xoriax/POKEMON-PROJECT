@@ -2,7 +2,10 @@ package fr.efrei.pokemon_tcg.models;
 
 import java.util.Random;
 
+import fr.efrei.pokemon_tcg.constants.Rarity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,14 +14,6 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Card {
-    // uuid de la carte
-    // uuid du pokemon (selectionne aleatoirement le pokemon parmit ceux disponible
-    // dans la DB)
-    // PV qui doit etre ajouter et generer automatiquement lors de la creation
-    // rarete qui dois etre aleatoire et attribue une rarete à la carte creer en
-    // fonction du pourcentage des rareter
-    // uuid de l'attaque pour le first_attaque
-    // uuid de l'attaque pour le second_attaque
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -28,15 +23,35 @@ public class Card {
     @JoinColumn(name = "pokemon_uuid")
     private Pokemon pokemon;
 
-    private int pv;
+    private final int pv;
+
+    @Enumerated(EnumType.STRING)
+    private Rarity rarity;
 
     public Card() {
         this.pv = genererPvAleatoires();
+        this.rarity = genererRarityAleatoire();
     }
 
     private int genererPvAleatoires() {
         Random random = new Random();
         return 150 + random.nextInt(151);
+    }
+
+    private Rarity genererRarityAleatoire() {
+        Random random = new Random();
+        int chance = random.nextInt(100) + 1;
+        if (chance <= 50) {
+            return Rarity.COMMON; 
+        }else if (chance <= 80) {
+            return Rarity.UNCOMMON; 
+        }else if (chance <= 95) {
+            return Rarity.RARE; 
+        }else if (chance <= 99) {
+            return Rarity.EPIC; 
+        }else {
+            return Rarity.LEGENDARY;
+        }
     }
 
     public String getUuid() {
@@ -55,4 +70,11 @@ public class Card {
         return pv;
     }
 
+    public Rarity getRarity() {
+        return rarity;
+    }
+
+    public void setRarity(Rarity rarity) {
+        this.rarity = rarity;
+    }
 }

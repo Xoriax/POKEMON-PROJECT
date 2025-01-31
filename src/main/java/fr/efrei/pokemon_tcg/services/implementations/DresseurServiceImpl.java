@@ -1,5 +1,10 @@
 package fr.efrei.pokemon_tcg.services.implementations;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import fr.efrei.pokemon_tcg.dto.CapturePokemon;
 import fr.efrei.pokemon_tcg.dto.DresseurDTO;
 import fr.efrei.pokemon_tcg.models.Dresseur;
@@ -7,10 +12,6 @@ import fr.efrei.pokemon_tcg.models.Pokemon;
 import fr.efrei.pokemon_tcg.repositories.DresseurRepository;
 import fr.efrei.pokemon_tcg.services.IDresseurService;
 import fr.efrei.pokemon_tcg.services.IPokemonService;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 public class DresseurServiceImpl implements IDresseurService {
@@ -32,6 +33,7 @@ public class DresseurServiceImpl implements IDresseurService {
 		return repository.findById(uuid).orElse(null);
 	}
 
+    @Override
 	public void capturerPokemon(String uuid, CapturePokemon capturePokemon) {
 		Dresseur dresseur = findById(uuid);
 		Pokemon pokemon = pokemonService.findById(capturePokemon.getUuid());

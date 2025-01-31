@@ -58,7 +58,7 @@ public class CardController {
     }
 
     @DeleteMapping("/{uuid}")
-    public ResponseEntity<?> updateCard(@PathVariable String uuid) {
+    public ResponseEntity<?> deleteCard(@PathVariable String uuid) {
         boolean isSupprimer = cardService.delete(uuid);
         if (!isSupprimer) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -52,6 +52,7 @@ public class CardService implements ICardService {
             return false;
         }
         cardAModifier.setPokemon(card.getPokemon());
+        cardAModifier.setRarity(card.getRarity());
         repository.save(cardAModifier);
         return true;
     }

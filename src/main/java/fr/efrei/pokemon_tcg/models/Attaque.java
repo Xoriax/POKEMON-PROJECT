@@ -16,7 +16,7 @@ public class Attaque {
 
     private String nom;
 
-    private int degats;
+    private final int degats;
 
     public Attaque() {
         this.degats = genererDegatsAleatoires();
