@@ -49,12 +49,16 @@ public class TirageService implements ITirageService {
         }
 
         Random random = new Random();
-        Card randomCard = cards.get(random.nextInt(cards.size()));
+        int tiragesToCreate = Math.min(5 - tiragesToday.size(), 5);
 
-        Tirage tirage = new Tirage();
-        tirage.setCard(randomCard);
-        tirage.setDatedropped(LocalDateTime.now());
-        tirageRepository.save(tirage);
+        for (int i = 0; i < tiragesToCreate; i++) {
+            Card randomCard = cards.get(random.nextInt(cards.size()));
+
+            Tirage tirage = new Tirage();
+            tirage.setCard(randomCard);
+            tirage.setDatedropped(LocalDateTime.now());
+            tirageRepository.save(tirage);
+        }
 
         return true;
     }
